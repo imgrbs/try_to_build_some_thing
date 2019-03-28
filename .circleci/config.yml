@@ -1,0 +1,32 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:11.0.0
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+
+      # - run:
+      #     name: "install global dependencies"
+      #     command: yarn global add jest@^24.5.0 babel-jest@^24.5.0 babel-loader@^8.0.5 @babel/core@^7.3.4
+      - run: yarn install
+
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
+      # run tests!
+      - run: yarn test
