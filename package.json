@@ -12,7 +12,9 @@
     "jest": "^24.5.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
-  "dependencies": {}
+  "dependencies": {
+    "next": "^8.0.3"
+  }
 }
